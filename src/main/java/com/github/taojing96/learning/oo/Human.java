@@ -1,5 +1,7 @@
 package com.github.taojing96.learning.oo;
-
+/**
+ * @author tj
+ */
 public abstract class Human {
     private String name;
     private int age;

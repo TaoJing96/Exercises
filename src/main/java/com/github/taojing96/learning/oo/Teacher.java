@@ -1,16 +1,17 @@
 package com.github.taojing96.learning.oo;
 
-import java.util.LinkedList;
-import java.util.List;
-
+import java.util.HashSet;
+/**
+ * @author tj
+ */
 public class Teacher extends Human {
 
     private Department dept;
-    private List<Subject> teachingSubject;
+    private HashSet<Subject> teachingSubject;
 
 
     {
-        teachingSubject = new LinkedList<>();
+        teachingSubject = new HashSet<>();
     }
 
     public Teacher(){
@@ -36,7 +37,7 @@ public class Teacher extends Human {
     }
 
     public void addSubject(Subject subject){
-        if(!teachingSubject.contains(subject)){
+        if(subject != null){
             teachingSubject.add(subject);
         }
     }

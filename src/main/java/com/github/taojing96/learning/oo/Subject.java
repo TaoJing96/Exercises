@@ -1,5 +1,7 @@
 package com.github.taojing96.learning.oo;
-
+/**
+ * @author tj
+ */
 public class Subject implements Comparable<Subject>{
     private String name;
     private int subjectId;

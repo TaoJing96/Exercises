@@ -6,10 +6,7 @@
  */
 package com.github.taojing96.learning.oo;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * @author tj
@@ -17,31 +14,40 @@ import java.util.TreeMap;
 public class Student extends Human{
 
     private int grade;
-    private List<Subject> choosenSubjects;
+    private HashSet<Subject> choosenSubjects;
     private TreeMap<Subject, Integer> scores;
+    private long sno;
 
     {
-        choosenSubjects = new LinkedList<>();
+        choosenSubjects = new HashSet<>();
         scores = new TreeMap<>();
     }
 
     public Student() {
     }
 
-    public Student(String name, int age) {
-        super.setAge(age);
-        super.setName(name);
+    public Student(String name, int age, long sno, boolean isMale) {
+        super(name, age, isMale);
+        this.grade = grade;
+        this.sno = sno;
     }
 
-    public Student(String name, int grade, int age, boolean isMale) {
+    public Student(String name, int age, long sno) {
+        super(name, age);
         this.grade = grade;
-        super.setAge(age);
-        super.setName(name);
-        super.setMale(isMale);
+        this.sno = sno;
     }
 
     public void sayName(){
         System.out.println("My name is " + getName());
+    }
+
+    public long getSno() {
+        return sno;
+    }
+
+    public void setSno(long sno) {
+        this.sno = sno;
     }
 
     public int getGrade() {
@@ -52,12 +58,12 @@ public class Student extends Human{
         this.grade = grade;
     }
 
-    public List<Subject> getChoosenSubjects() {
+    public HashSet<Subject> getChoosenSubjects() {
         return choosenSubjects;
     }
 
     public void chooseSubject(Subject subject){
-        if(!choosenSubjects.contains(subject)){
+        if(subject != null){
             choosenSubjects.add(subject);
         }
     }
@@ -67,6 +73,9 @@ public class Student extends Human{
     }
 
     public void addScore(Subject subject, int score){
+        if(subject == null || score < 0 || score > 100 || !choosenSubjects.contains(subject)){
+            return;
+        }
         scores.put(subject, score);
     }
 
@@ -93,11 +102,11 @@ public class Student extends Human{
     }
 
     public List<Subject> getCommonSubjects(Student student){
-        List<Subject> commonSubjects = new LinkedList<>();
+        List<Subject> commonSubjects = new ArrayList<>();
         if(student == null){
             return commonSubjects;
         }
-        for (Subject subject : student.getChoosenSubjects()) {
+        for (Subject subject : student.choosenSubjects) {
             if(choosenSubjects.contains(subject)){
                 commonSubjects.add(subject);
             }
