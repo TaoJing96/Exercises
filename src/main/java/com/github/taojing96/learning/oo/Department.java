@@ -6,6 +6,7 @@ import java.util.List;
 /**
  * @author tj
  */
+
 public class Department {
     private String name;
     private int deptId;
@@ -51,5 +52,13 @@ public class Department {
 
     public List<Teacher> getTeachers(){
         return new ArrayList<>(this.teachers);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null || obj.getClass() != getClass()){
+            return false;
+        }
+        return name == ((Department)obj).name;
     }
 }

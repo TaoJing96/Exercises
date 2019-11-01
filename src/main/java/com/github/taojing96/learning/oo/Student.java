@@ -11,6 +11,7 @@ import java.util.*;
 /**
  * @author tj
  */
+
 public class Student extends Human{
 
     private int grade;
@@ -20,14 +21,22 @@ public class Student extends Human{
 
     {
         choosenSubjects = new HashSet<>();
-        scores = new TreeMap<>();
+        scores = new TreeMap<Subject, Integer>((o1, o2) -> {
+            if(o1.getCredit() < o2.getCredit()){
+                return -1;
+            }else if(o1.getCredit() > o2.getCredit()){
+                return 1;
+            }else{
+                return 0;
+            }
+        });
     }
 
     public Student() {
     }
 
-    public Student(String name, int age, long sno, boolean isMale) {
-        super(name, age, isMale);
+    public Student(String name, int age, long sno, boolean male) {
+        super(name, age, male);
         this.grade = grade;
         this.sno = sno;
     }
@@ -68,6 +77,19 @@ public class Student extends Human{
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if(o == null || getClass() != o.getClass()){
+            return false;
+        }
+        return hashCode() == ((Student)o).hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), sno, grade);
+    }
+
     public boolean judgeSubjectChoosenOrNot(Subject subject){
         return choosenSubjects.contains(subject);
     }
@@ -84,21 +106,24 @@ public class Student extends Human{
             return;
         }
         Set<Subject> subjects = scores.keySet();
-        System.out.print(this.getName() + "成绩单为 -->");
+        StringBuilder transcript = new StringBuilder();
+        transcript.append(getName()).append("成绩单为");
         for (Subject subject : subjects) {
-            System.out.print(subject.getName() + ":" + scores.get(subject) + "  ");
+            transcript.append(subject.getName()).append(":").append(scores.get(subject)).append("   ");
         }
-        System.out.println();
+        System.out.println(transcript);
     }
 
     public void printAllChoosenSubjects(){
         if(choosenSubjects.size() == 0){
             return;
         }
-        System.out.print(getName() + "所选课程为 --->");
+        StringBuilder allChoosenSubjects = new StringBuilder();
+        allChoosenSubjects.append(getName()).append("所选课程为 --->");
         for (Subject choosenSubject : choosenSubjects) {
-            System.out.print(choosenSubjects + "  ");
+            allChoosenSubjects.append(choosenSubjects).append("   ");
         }
+        System.out.println(allChoosenSubjects);
     }
 
     public List<Subject> getCommonSubjects(Student student){

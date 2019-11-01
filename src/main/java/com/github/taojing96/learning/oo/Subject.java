@@ -1,8 +1,12 @@
 package com.github.taojing96.learning.oo;
+
+import java.util.Objects;
+
 /**
  * @author tj
  */
-public class Subject implements Comparable<Subject>{
+
+public class Subject {
     private String name;
     private int subjectId;
     private int credit;
@@ -42,13 +46,15 @@ public class Subject implements Comparable<Subject>{
     }
 
     @Override
-    public int compareTo(Subject sub) {
-        if(this.credit < sub.credit){
-            return -1;
-        }else if(this.credit > sub.credit){
-            return 1;
-        }else{
-            return 0;
+    public boolean equals(Object obj) {
+        if(obj == null || getClass() != obj.getClass()){
+            return false;
         }
+        return hashCode() == ((Subject)obj).hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, credit, subjectId);
     }
 }

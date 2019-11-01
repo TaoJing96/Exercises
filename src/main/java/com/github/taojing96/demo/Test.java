@@ -16,12 +16,14 @@ import java.util.List;
 /**
  * @author tj
  */
+
 public class Test {
 
     public static void main(String[] args) {
         /*
         * 定义课程信息
         * */
+        System.out.println("assd".concat("as"));
         Subject math = new Subject("数学", 001, 2);
         Subject chn = new Subject("语文", 002, 3);
         Subject eng = new Subject("英语", 003, 1);

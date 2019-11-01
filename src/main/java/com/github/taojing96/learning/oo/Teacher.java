@@ -1,9 +1,12 @@
 package com.github.taojing96.learning.oo;
 
 import java.util.HashSet;
+import java.util.Objects;
+
 /**
  * @author tj
  */
+
 public class Teacher extends Human {
 
     private Department dept;
@@ -23,8 +26,8 @@ public class Teacher extends Human {
         this.dept = dept;
     }
 
-    public Teacher(String name, int age, Boolean isMale, Department dept) {
-        super(name, age, isMale);
+    public Teacher(String name, int age, Boolean male, Department dept) {
+        super(name, age, male);
         this.dept = dept;
     }
 
@@ -46,8 +49,16 @@ public class Teacher extends Human {
         return teachingSubject.contains(subject);
     }
 
-    public static void main(String[] args) {
-        System.out.println(new Teacher().getAge());
-        System.out.println(new Teacher().judgeSubjectIsTeachedOrNot(null));
+    @Override
+    public boolean equals(Object o) {
+        if(o == null || o.getClass() != getClass()){
+            return false;
+        }
+        return hashCode() == ((Teacher)o).hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), dept);
     }
 }
